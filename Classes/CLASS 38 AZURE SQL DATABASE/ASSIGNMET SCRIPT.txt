@@ -1,0 +1,23 @@
+
+For Delete Performance Monitor Data Collector Set
+logman delete sql_perflog
+
+
+
+=====================================================================================================================
+$Counters = @(
+    "\Processor(_Total)\% Processor Time",
+    "\LogicalDisk(_Total)\Disk Read Bytes/sec",
+    "\LogicalDisk(_Total)\Disk Write Bytes/sec",
+    "\LogicalDisk(_Total)\Disk Reads/sec",
+    "\LogicalDisk(_Total)\Disk Writes/sec",
+    "\Database(svchost)\Log Bytes Write/sec"     
+)
+
+# Continuous monitoring with a specified sample interval
+$Interval = 1  # seconds
+$FilePath = "C:\MigrationMetrics\output.csv"
+
+Get-Counter -Counter $Counters -Continuous  -SampleInterval $Interval | Export-Counter -Path $FilePath -FileFormat CSV
+
+================================================================================================================================
